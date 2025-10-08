@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel de Imagens</title>
+
+</head>
+
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.carrossel-container {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.carrossel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+}
+
+.descricao {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+}
+
+.descricao h2 {
+    margin-bottom: 10px;
+}
+
+.anterior, .proximo {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+}
+
+.proximo {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.anterior:hover, .proximo:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.indicadores {
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+}
+
+.indicador {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.ativo, .indicador:hover {
+    background-color: #717171;
+}
+</style>
+
+<body>
+
+    <div class="carrossel-container">
+        <div class="carrossel">
+            <div class="slide">
+                <img src="./img/imagem-obra.jpeg" alt="Imagem 1">
+                <div class="descricao">
+                    <h2>Título da Imagem 1</h2>
+                    <p>Esta é a descrição para a primeira imagem do carrossel.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="./img/imagem distante.jpeg" alt="Imagem 2">
+                <div class="descricao">
+                    <h2>Título da Imagem 2</h2>
+                    <p>Esta é a descrição para a segunda imagem do carrossel.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="./img/outraobra.jpeg" alt="Imagem 3">
+                <div class="descricao">
+                    <h2>Título da Imagem 3</h2>
+                    <p>Esta é a descrição para a terceira imagem do carrossel.</p>
+                </div>
+            </div>
+        </div>
+        <button class="anterior" onclick="mudarSlide(-1)">&#10094;</button>
+        <button class="proximo" onclick="mudarSlide(1)">&#10095;</button>
+
+        <div class="indicadores">
+            <span class="indicador" onclick="mostrarSlide(0)"></span>
+            <span class="indicador" onclick="mostrarSlide(1)"></span>
+            <span class="indicador" onclick="mostrarSlide(2)"></span>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const indicadores = document.querySelectorAll(".indicador");
+
+    function mostrarSlide(n) {
+        if (n >= slides.length) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = slides.length - 1;
+        } else {
+            slideIndex = n;
+        }
+
+        const carrossel = document.querySelector(".carrossel");
+        carrossel.style.transform = `translateX(${-slideIndex * 100}%)`;
+
+        indicadores.forEach((indicador) => indicador.classList.remove("ativo"));
+        indicadores[slideIndex].classList.add("ativo");
+    }
+
+    function mudarSlide(n) {
+        mostrarSlide(slideIndex + n);
+    }
+
+    function autoSlide() {
+        mudarSlide(1);
+    }
+
+    // Inicia a transição automática a cada 5 segundos (5000 milissegundos)
+    let slideInterval = setInterval(autoSlide, 5000);
+
+    // Para a transição automática quando o mouse está sobre o carrossel
+    const carrosselContainer = document.querySelector(".carrossel-container");
+    carrosselContainer.addEventListener("mouseenter", () => {
+        clearInterval(slideInterval);
+    });
+
+    // Reinicia a transição automática quando o mouse sai do carrossel
+    carrosselContainer.addEventListener("mouseleave", () => {
+        slideInterval = setInterval(autoSlide, 5000);
+    });
+
+    // Exibe o primeiro slide ao carregar a página
+    mostrarSlide(slideIndex);
+</script>
+
+</html>
