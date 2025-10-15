@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Imagens Lado a Lado Expansíveis</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h2,
+        h3,
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* --- CSS PARA O SLIDESHOW --- */
+        .slideshow-container {
+            width: 1400px;
+            height: 300px;
+            position: relative;
+            /* Essencial para posicionar os botões */
+            margin: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+            background-color: #fff;
+        }
+
+        .mySlides {
+            display: none;
+            text-align: center;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-height: 450px;
+            object-fit: cover;
+        }
+
+        .slideshow-caption {
+            color: #f2f2f2;
+            font-size: 1.1rem;
+            padding: 15px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            box-sizing: border-box;
+        }
+
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* --- NOVO CSS PARA OS BOTÕES DO SLIDESHOW --- */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            /* Centraliza verticalmente */
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            /* Impede que o texto seja selecionado */
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* --- CSS PARA A GALERIA (sem alterações) --- */
+        .gallery {
+            margin-top: 100px;
+            margin-left: 300px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            padding-top: 20px;
+        }
+
+        .gallery figure {
+            margin: 0;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery figcaption {
+            margin-top: auto;
+            padding: 15px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            display: block;
+            transition: transform 0.2s;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .gallery figure:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- CSS PARA O MODAL (sem alterações) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 20px 0;
+        }
+
+        .modal-content,
+        #caption {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* --- Media Queries (sem alterações) --- */
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .slideshow-caption {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="./img/predio-engenharias.jpeg" alt="Slideshow-Predio-Engenharia">
+            <div class="slideshow-caption">Predio das Engenharias.</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="./img/alojamentos.JPG" alt="Slideshow-Alojamentos">
+            <div class="slideshow-caption">Alojamentos.</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="img/reformas.jpeg" alt="Slideshow-Reformas">
+            <div class="slideshow-caption">Reformas.</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+
+
+    <div class="gallery">
+        <figure>
+            <img class="expandable-image" src="./img/predio-engenharias.jpeg" alt="Prédio das engenharias">
+            <figcaption>Prédio das Engenharias.</figcaption>
+        </figure>
+        <figure>
+            <img class="expandable-image" src="./img/alojamentos.JPG" alt="alojamentos">
+            <figcaption>Alojamentos.</figcaption>
+        </figure>
+        <figure>
+            <img class="expandable-image" src="./img/reformas.jpeg" alt="Reformas">
+            <figcaption>Reformas da BAFZ</figcaption>
+        </figure>
+        <figure>
+            <img class="expandable-image" src="./img/qrcode.jpeg" alt="QR-Code">
+            <figcaption>Escanei e interaja aqui</figcaption>
+        </figure>
+
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT ATUALIZADO PARA O SLIDESHOW ---
+        let slideIndex = 1;
+        let slideTimer;
+
+        showSlides(slideIndex);
+
+        // Função chamada pelos botões (próximo/anterior)
+        function plusSlides(n) {
+            clearTimeout(slideTimer); // Interrompe o timer automático
+            showSlides(slideIndex += n);
+        }
+
+        // Função principal que controla a exibição dos slides
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+
+            // Reinicia o timer para a troca automática
+            slideTimer = setTimeout(function () { plusSlides(1); }, 5000);
+        }
+
+        // --- JAVASCRIPT PARA O MODAL DA GALERIA (sem alterações) ---
+        var modal = document.getElementById("myModal"),
+            images = document.querySelectorAll(".expandable-image"),
+            modalImg = document.getElementById("img01"),
+            captionText = document.getElementById("caption");
+        images.forEach(function (img) {
+            img.onclick = function () {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.nextElementSibling.innerHTML;
+            }
+        });
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () { modal.style.display = "none"; }
+        window.onclick = function (event) { if (event.target == modal) { modal.style.display = "none"; } }
+    </script>
+
+</body>
+
+</html>
