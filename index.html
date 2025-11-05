@@ -148,6 +148,15 @@
             transform: scale(1.05);
         }
 
+        .gallery img.qr-code {
+            object-fit: contain; /* Isso faz a imagem inteira caber, sem cortar */
+            
+            /* Opcional: Adiciona um "preenchimento" para o QR code
+               não ficar colado nas bordas e parecer menor */
+            padding: 20px; 
+            box-sizing: border-box; /* Garante que o padding não quebre o layout */
+        }
+
         /* --- CSS PARA O MODAL (sem alterações) --- */
         .modal {
             display: none;
@@ -277,10 +286,10 @@
             <img class="expandable-image" src="./img/reformas.jpeg" alt="Reformas">
             <figcaption>Reformas da BAFZ</figcaption>
         </figure>
-        <figure>
-            <img class="expandable-image" src="./img/qrcode.jpeg" alt="QR-Code" height="100px" width="100px">
-            <figcaption>Escaneie com a câmera do seu celular e viva uma imersão 360°</figcaption>
-        </figure>
+       <figure>
+            <img class="expandable-image qr-code" src="./img/qrcode.jpeg" alt="QR-Code"> 
+            <figcaption>Escaneie com a câmera do seu celular e viva uma imersão 360°</figcaption>
+        </figure>
 
     </div>
 
